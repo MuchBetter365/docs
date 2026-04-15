@@ -218,9 +218,28 @@ To receive notifications in Microsoft Teams, you need to create a webhook. Once 
   1. Paste the following payload in the **Payload** field:
       ```json
       {
-        "text": "{{notification-message}}"
+        "type": "message",
+        "attachments": [
+          {
+            "contentType": "application/vnd.microsoft.card.adaptive",
+            "contentUrl": null,
+            "content": {
+              "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+              "type": "AdaptiveCard",
+              "version": "1.2",
+              "body": [
+                {
+                  "type": "TextBlock",
+                  "text": "{{notification-message}}",
+                  "wrap": true
+                }
+              ]
+            }
+          }
+        ]
       }
       ```
+      This payload uses the Microsoft Teams Adaptive Card message format, where `type` must be `message`, `attachments` contains the card objects, `contentType` must be `application/vnd.microsoft.card.adaptive`, and `content` contains the Adaptive Card JSON.
   1. Click **Test notification** to receive a test message from Crowdin Enterprise to your Microsoft Teams channel.
   1. Once finished with the configuration, click **Save**.
 </Steps>
